@@ -1,0 +1,10 @@
+.container {
+  max-height: 36px;
+  min-height: 20px;
+  overflow: hidden;
+}
+
+.err {
+  font-size: 11px;
+  color: rgba(128, 128, 128, 0.6);
+}

@@ -1,0 +1,7 @@
+{
+  "weatherApiKey": "key",
+  "mapApiKey": "key",
+  "reverseGeoApiKey": "key",
+  "startingLat": "32.7473",
+  "startingLon": "-97.0945"
+}

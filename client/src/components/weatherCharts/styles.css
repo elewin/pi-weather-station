@@ -1,0 +1,26 @@
+.container {
+    width: 255px;
+    height: 115px;    
+  }
+
+  .dark {
+    color: #f6f6f444;
+  }
+  
+  .light {
+    color: #3a393888;
+  }
+  
+  .err-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    font-size: 12px;
+    flex-direction: column;
+  }
+    
+  .err-container .message{
+    margin-top: 10px;
+    word-break: break-word;
+  }

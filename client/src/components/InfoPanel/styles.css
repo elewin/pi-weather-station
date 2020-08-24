@@ -1,0 +1,44 @@
+.panel {
+  height: 100%;
+}
+.container {  
+  height: calc(100% - 20px);  /* subtract padding */
+  padding: 10px;
+  font-family: "Rubik", sans-serif;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 90px auto 10px;
+  grid-template-areas:
+    "clock"
+    "weather-info"
+    "controls";
+}
+
+.dark .container {
+  color: #f6f6f4;
+}
+
+.light .container {
+  color: #3a3938;
+}
+
+.clock-container {
+  grid-area: clock;
+}
+
+.weather-info-container {
+  grid-area: weather-info;
+}
+
+.controls {
+  grid-area: controls;  
+  margin: -10px; /* subtract padding */  
+}
+
+.dark .controls{
+  border-top: 1px solid #757575;
+}
+
+.light .controls{
+  border-top: 1px solid #f1f1f1;
+}

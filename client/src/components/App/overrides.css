@@ -1,0 +1,12 @@
+.map-container.map-mouse-hide .leaflet-grab {
+  cursor: none;
+}
+
+.map-container.map-mouse-hide .leaflet-interactive {
+  cursor: none;
+}
+
+.map-container.map-dark-mode .leaflet-bar a {
+  background-color: #3a3938;
+  color: #f6f6f4;
+}

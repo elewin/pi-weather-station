@@ -1,0 +1,49 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container > div {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;  
+}
+
+.show-mouse.container > div{
+  cursor: pointer;
+}
+
+.container.dark > div {
+  background: linear-gradient(#5d5c5c, #4e4e4e);
+  border-right: 1px solid #4c4c4c;
+  border-left: 1px solid #757575;
+}
+
+.container.dark > div:active {
+  background: linear-gradient(#4e4e4e, #5d5c5c);
+}
+
+.container.light > div {
+  background: linear-gradient(#d6d6d6, #c7c7c7);
+  border-right: 1px solid #bdbdbd;
+  border-left: 1px solid #dadada;
+}
+
+.container.light > div:active {
+  background: linear-gradient(#d7d7d7, #e6e6e6);
+}
+
+.container.light > div:first-child {
+  border-left: none;
+}
+
+.light .button-down {
+  background: linear-gradient(#E4E4E4, #F3F3F3) !important;
+}
+
+.dark .button-down {
+  background: linear-gradient(#686868, #777676) !important;
+}

@@ -1,0 +1,16 @@
+.date{
+    display: flex;
+    justify-content: flex-end;    
+    font-size: 14px;
+}
+
+.time{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 45px;
+}
+
+.sun-rise-set-container{
+    display: flex;
+    justify-content: flex-end;
+}

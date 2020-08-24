@@ -1,0 +1,66 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+  "weather-icon current-temp stats"
+  "description description description"
+}
+
+.current-temp {
+  grid-area: current-temp;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 55px;
+}
+
+.icon-container {
+  grid-area: weather-icon;  
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.weather-icon {
+  font-size: 45px;
+}
+
+.description {
+  grid-area: description;
+  font-size: 14px;
+}
+
+.stats {
+  grid-area: stats;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.stat-item {
+  display: flex;
+}
+
+.stat-item > div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  width: 25px;
+}
+
+.uvi-label {
+  font-size: 12px;
+}
+
+.text-unit {
+  display: flex;
+  align-items: baseline;
+}
+
+.text-unit > div:last-child {
+  margin-left: 2px;
+  font-size: 8px;
+}

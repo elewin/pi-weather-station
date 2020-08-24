@@ -1,0 +1,23 @@
+.animate-enter {
+    -webkit-transform: translateX(-200%);
+    -moz-transform: translateX(-200%);
+    transform: translateX(-100%);
+  }
+  .animate-enter-active {
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    transform: translateX(0px);
+    -webkit-transition: all 0.3s ease-in-out;
+  }
+  .animate-exit {
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    transform: translateX(0px);
+    -webkit-transition: all 0.3s ease-in-out;
+  }
+  
+  .animate-exit-active {
+    -webkit-transform: translateX(-200%);
+    -moz-transform: translateX(-200%);
+    transform: translateX(-100%);
+  }

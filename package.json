@@ -1,0 +1,23 @@
+{
+  "name": "pi-weather-station",
+  "version": "1.0.0",
+  "description": "A weather station designed for the Raspberry Pi 7 inch touchscreen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/index.js"
+  },
+  "author": "Eric Lewin",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "open": "^7.1.0"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.1"
+  }
+}

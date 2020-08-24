@@ -1,0 +1,40 @@
+.container {
+  padding: 0px 10px;
+}
+
+.location {
+  margin-bottom: 3px;
+}
+
+.weather-chart {
+  display: flex;
+  justify-content: center;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.err-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  font-size: 12px;
+  flex-direction: column;
+}
+
+.dark {
+  color: #f6f6f444;
+}
+
+.light {
+  color: #3a393888;
+}
+
+.err-container .message{
+  margin-top: 10px;
+  word-break: break-word;
+}

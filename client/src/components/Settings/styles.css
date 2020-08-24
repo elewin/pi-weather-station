@@ -1,0 +1,144 @@
+.container {
+  height: calc(100vh - 20px); /* subtract padding */
+  width: calc(100vw - 320px); /* subtract info panel and padding */
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+  padding: 10px;
+  color: #f6f6f4;
+  font-family: "Rubik", sans-serif;
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.header {
+  font-size: 14px;
+}
+
+.settings-container {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-container input {
+  height: 30px;
+  width: 100%;
+  max-width: 800px;
+  margin-right: 10px;
+  outline: none;
+  border: 2px solid #5d5c5c;
+}
+
+.input-container.invalid input {
+  border: 2px solid #c20808;
+}
+
+.button-container {
+  display: flex;
+}
+
+.button-container > div {
+  margin-right: 10px;
+}
+
+.button-container > div:last-child {
+  margin-right: 0px;
+}
+
+.label {
+  font-size: 13px;
+}
+
+.button {
+  height: 34px;
+  width: 34px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#5d5c5c, #4e4e4e);
+  border-top: 1px solid #757575;
+  border-left: 1px solid #757575;
+  border-right: 1px solid #4c4c4c;
+  border-bottom: 1px solid #4c4c4c;
+}
+
+.show-mouse.button {
+  cursor: pointer;
+}
+
+.button.down {
+  color: #4e4e4e;
+  background: linear-gradient(#d6d6d6, #c7c7c7);
+}
+
+.button:active {
+  background: linear-gradient(#4e4e4e, #5d5c5c);
+}
+
+.settings-item {
+  margin: 10px 0px;
+}
+
+.toggle-container {
+  display: flex;
+}
+
+.toggle-buttons {
+  display: flex;
+  max-width: 900px;
+
+  justify-content: space-between;
+}
+
+.toggle-buttons > div {
+  margin-right: 10px;
+}
+
+.toggle-buttons > div:last-child {
+  margin-right: 0px;
+}
+
+.toggle-container > .button {
+  width: 50px;
+}
+
+.bottom-button-container {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-button {
+  width: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.save-button .label {
+  margin-right: 5px;
+}
+
+.close-button {
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.show-mouse.close-button {
+  cursor: pointer;
+}
+
+.close-button:active {
+  color: #c7c7c7;
+}
+
+.save-button-container {
+  margin-top: 15px;
+}
