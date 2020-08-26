@@ -2,7 +2,7 @@
 
 This is a weather station designed to be used with a Raspberry Pi on the official 7" 800x480 touchscreen.
 
-![pws-screenshot1](https://user-images.githubusercontent.com/15202038/91359576-715bdb00-e7ba-11ea-8d19-f0b8d888de64.JPG)
+![pws-screenshot3](https://user-images.githubusercontent.com/15202038/91359998-4625bb80-e7bb-11ea-937e-c87eede41f35.JPG)
 
 The weather station will require you to have API keys from [Mapbox](https://www.mapbox.com/) and [ClimaCell](https://www.climacell.co/). Optionally, you can use an API key from [LocationIQ](https://locationiq.com/) to preform reverse geocoding.
 
