@@ -12,6 +12,8 @@ Weather maps are provided by the [RainViewer](https://www.rainviewer.com/) API, 
 
 ## Setup 
 
+> You will need to have [Node.js](https://nodejs.org/) installed.
+
 To install, clone the repo and run 
 
     $ npm install
