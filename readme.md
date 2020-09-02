@@ -8,6 +8,8 @@ The weather station will require you to have API keys from [Mapbox](https://www.
 
 Weather maps are provided by the [RainViewer](https://www.rainviewer.com/) API, which generously does not require an [API key](https://www.rainviewer.com/api.html).
 
+See it in action [here](https://www.youtube.com/watch?v=dvM6cyqYSw8).
+
 > Be mindful of the plan limits for your API keys and understand the terms of each provider, as scrolling around the map and selecting different locations will incur API calls for every location. Additionally, the weather station will periodically make additional api calls to get weather updates throughout the day.
 
 ## Setup 
