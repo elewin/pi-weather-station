@@ -26,6 +26,22 @@ Start the server with
 
 Now set point your browser to `http://localhost:8080` and put it in full screen mode (`F11` in Chromium).
 
+### Access from another machine
+
+It's possible to access the app from another machine, but beware that by doing so you'll be exposing the app to your entire network, and someone else could potentially access the app and retreive your API keys from the settings page. By default the app is only accessible to `localhost`, but if you would like to open it up to your network (at your own risk!), open `/server/index.js` and remove `"localhost"` from the line that contains:
+
+```js
+app.listen(PORT, "localhost", async () => {
+```
+
+so that it becomes:
+
+```js
+app.listen(PORT, async () => {
+```
+
+The server will now serve the app across your network.
+
 ## Settings
 
 - Your API keys are saved locally (in plain text) to `settings.json`.
