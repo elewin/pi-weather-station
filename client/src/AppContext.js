@@ -307,10 +307,10 @@ export function AppContextProvider({ children }) {
     setHourlyWeatherDataErrMsg(null);
     const { latitude, longitude } = coords;
     const fields = [
-      "temp",
-      "precipitation_probability",
-      "precipitation",
-      "wind_speed",
+      "temperature",
+      "precipitationProbability",
+      "precipitationIntensity",
+      "windSpeed",
     ].join("%2c");
 
     const endTime = new Date(
@@ -330,7 +330,8 @@ export function AppContextProvider({ children }) {
 
       axios
         .get(
-          `https://api.climacell.co/v3/weather/forecast/hourly?unit_system=si&fields=${fields}&apikey=${weatherApiKey}&lat=${latitude}&lon=${longitude}&end_time=${endTime}`
+          //`https://api.climacell.co/v3/weather/forecast/hourly?unit_system=si&fields=${fields}&apikey=${weatherApiKey}&lat=${latitude}&lon=${longitude}&end_time=${endTime}`
+          `https://data.climacell.co/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=1h&apikey=${weatherApiKey}`
         )
         .then((res) => {
           if (!res) {
@@ -365,10 +366,10 @@ export function AppContextProvider({ children }) {
     setDailyWeatherDataErrMsg(null);
     const { latitude, longitude } = coords;
     const fields = [
-      "temp",
-      "precipitation_probability",
-      "precipitation",
-      "wind_speed",
+      "temperature",
+      "precipitationProbability",
+      "precipitationIntensity",
+      "windSpeed",
     ].join("%2c");
 
     const endTime = new Date(
@@ -387,7 +388,8 @@ export function AppContextProvider({ children }) {
       }
       axios
         .get(
-          `https://api.climacell.co/v3/weather/forecast/daily?unit_system=si&fields=${fields}&apikey=${weatherApiKey}&lat=${latitude}&lon=${longitude}&end_time=${endTime}`
+          //          `https://api.climacell.co/v3/weather/forecast/daily?unit_system=si&fields=${fields}&apikey=${weatherApiKey}&lat=${latitude}&lon=${longitude}&end_time=${endTime}`
+          `https://data.climacell.co/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=1d&apikey=${weatherApiKey}`
         )
         .then((res) => {
           if (!res) {
@@ -422,16 +424,17 @@ export function AppContextProvider({ children }) {
     const { latitude, longitude } = coords;
 
     // https://developer.climacell.co/v3/reference#data-layers-weather
+    // https://docs.climacell.co/reference/data-layers-core
     const fields = [
-      "temp",
+      "temperature",
       "humidity",
-      "wind_speed",
-      "precipitation",
-      "precipitation_type",
-      "sunrise",
-      "sunset",
-      "cloud_cover",
-      "weather_code",
+      "windSpeed",
+      "precipitationIntensity",
+      "precipitationType",
+      //"sunriseTime", // no longer available
+      //"sunsetTime", // no longer available
+      "cloudCover",
+      "weatherCode",
     ].join("%2c");
     return new Promise((resolve, reject) => {
       if (!coords) {
@@ -445,7 +448,8 @@ export function AppContextProvider({ children }) {
       }
       axios
         .get(
-          `https://api.climacell.co/v3/weather/realtime?unit_system=si&fields=${fields}&apikey=${weatherApiKey}&lat=${latitude}&lon=${longitude};`
+          //          `https://api.climacell.co/v3/weather/realtime?unit_system=si&fields=${fields}&apikey=${weatherApiKey}&lat=${latitude}&lon=${longitude};`
+          `https://data.climacell.co/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=1m&apikey=${weatherApiKey}`
         )
         .then((res) => {
           if (!res) {
@@ -456,6 +460,7 @@ export function AppContextProvider({ children }) {
           resolve(data);
         })
         .catch((err) => {
+          console.log("hello");
           setCurrentWeatherDataErr(true);
           if (err && err.message) {
             setCurrentWeatherDataErrMsg(err.message);
