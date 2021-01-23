@@ -4,7 +4,6 @@ import styles from "./styles.css";
 import {
   convertTemp,
   convertSpeed,
-  convertLength,
 } from "~/services/conversions";
 
 import { InlineIcon } from "@iconify/react";
@@ -33,29 +32,29 @@ import daySunnyOvercast from "@iconify/icons-wi/day-sunny-overcast";
  * @returns {JSX.Element} Current weather conditions component
  */
 const CurrentWeather = () => {
-  const { currentWeatherData, tempUnit, speedUnit, lengthUnit } = useContext(
+  const { currentWeatherData, tempUnit, speedUnit, sunriseTime, sunsetTime } = useContext(
     AppContext
   );
-  if (currentWeatherData) {
+  const weatherData =
+    currentWeatherData?.data?.timelines?.[0]?.intervals[0]?.values;
+  if (weatherData) {
     const {
-      cloud_cover: { value: cloudCover },
-      humidity: { value: humidity },
-      precipitation: { value: precipitation },
-      precipitation_type: { value: precipitationType },
-      temp: { value: temp },
-      weather_code: { value: weatherCode },
-      wind_speed: { value: windSpeed },
-      sunrise: { value: sunrise },
-      sunset: { value: sunset },
-    } = currentWeatherData;
-
+      cloudCover,
+      humidity,
+      precipitationType,
+      precipitationProbability,
+      temperature,
+      weatherCode,
+      windSpeed,
+    } = weatherData;
+    const daylight = sunriseTime && sunsetTime ? isDaylight(new Date(sunriseTime), new Date(sunsetTime)) : true;
     const { icon: weatherIcon, desc: weatherDesc } =
-      parseWeatherCode(weatherCode, isDaylight(sunrise, sunset)) || {};
+      parseWeatherCode(weatherCode, daylight) || {};
 
     return (
       <div className={styles.container}>
         <div className={styles.currentTemp}>
-          {convertTemp(temp, tempUnit)}
+          {convertTemp(temperature, tempUnit)}
           <InlineIcon icon={degreesIcon} />
         </div>
         <div className={styles.iconContainer}>
@@ -65,6 +64,14 @@ const CurrentWeather = () => {
         </div>
         <div className={styles.stats}>
           <div>
+            <div className={styles.statItem}>
+              <div>
+                <InlineIcon
+                  icon={precipitationType === 2 ? snowIcon : rainIcon}
+                />
+              </div>
+              <div>{precipitationProbability}%</div>
+            </div>
             <div className={styles.statItem}>
               <div>
                 <InlineIcon icon={cloudIcon} />
@@ -88,17 +95,6 @@ const CurrentWeather = () => {
               </div>
               <div>{parseInt(humidity)}%</div>
             </div>
-            <div className={styles.statItem}>
-              <div>
-                <InlineIcon
-                  icon={precipitationType === "snow" ? snowIcon : rainIcon}
-                />
-              </div>
-              <div className={styles.textUnit}>
-                <div>{convertLength(precipitation, lengthUnit)}</div>
-                <div>{lengthUnit}</div>
-              </div>
-            </div>
           </div>
         </div>
         <div className={styles.description}>{weatherDesc || ""}</div>
@@ -112,61 +108,69 @@ const CurrentWeather = () => {
 /**
  * Parse weather code
  *
+ * https://docs.climacell.co/reference/data-layers-overview
+ *
  * @param {String} code
  * @param {Boolean} [isDay] if it is currently day
  * @returns {Object} weather description and icon
  */
 const parseWeatherCode = (code, isDay) => {
   switch (code) {
-    case "freezing_rain_heavy":
+    case 6201:
       return { desc: "Heavy freezing rain", icon: isDay ? dayRain : nightRain };
-    case "freezing_rain":
+    case 6001:
       return { desc: "Freezing rain", icon: isDay ? dayRain : nightRain };
-    case "freezing_rain_light":
+    case 6200:
       return { desc: "Light freezing rain", icon: isDay ? dayRain : nightRain };
-    case "freezing_drizzle":
+    case 6000:
       return { desc: "Freezing drizzle", icon: rainMix };
-    case "ice_pellets_heavy":
+    case 7101:
       return { desc: "Heavy ice pellets", icon: rainMix };
-    case "ice_pellets":
+    case 7000:
       return { desc: "Ice pellets", icon: rainMix };
-    case "ice_pellets_light":
+    case 7102:
       return { desc: "Light ice pellets", icon: rainMix };
-    case "snow_heavy":
+    case 5101:
       return { desc: "Heavy snow", icon: snowIcon };
-    case "snow":
+    case 5000:
       return { desc: "Show", icon: snowIcon };
-    case "snow_light":
+    case 5100:
       return { desc: "Light snow", icon: snowIcon };
-    case "flurries":
+    case 5001:
       return { desc: "Flurries", icon: snowIcon };
-    case "tstorm":
+    case 8000:
       return { desc: "Thunder storm", icon: thunderstormIcon };
-    case "rain_heavy":
+    case 4201:
       return { desc: "Heavy rain", icon: isDay ? dayRain : nightRain };
-    case "rain":
+    case 4001:
       return { desc: "Rain", icon: isDay ? dayRain : nightRain };
-    case "rain_light":
+    case 4200:
       return { desc: "Light rain", icon: isDay ? dayRain : nightRain };
-    case "drizzle":
+    case 4000:
       return { desc: "Drizzle", icon: rainMix };
-    case "fog_light":
+    case 2100:
       return { desc: "Light fog", icon: fogIcon };
-    case "fog":
+    case 2000:
       return { desc: "Fog", icon: fogIcon };
-    case "cloudy":
+    case 1001:
       return { desc: "Cloudy", icon: cloudyIcon };
-    case "mostly_cloudy":
+    case 1102:
       return { desc: "Mostly cloudy", icon: cloudyIcon };
-    case "partly_cloudy":
+    case 1101:
       return {
         desc: "Partly cloudy",
         icon: isDay ? daySunnyOvercast : nightAltCloudy,
       };
-    case "mostly_clear":
+    case 1100:
       return { desc: "Mostly clear", icon: isDay ? dayCloudy : nightAltCloudy };
-    case "clear":
+    case 1000:
       return { desc: "Clear", icon: isDay ? daySunny : nightClear };
+    case 3001:
+      return { desc: "Wind", icon: strongWind };
+    case 3000:
+      return { desc: "Light wind", icon: strongWind };
+    case 3002:
+      return { desc: "Strong wind", icon: strongWind };
   }
 };
 

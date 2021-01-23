@@ -48,6 +48,8 @@ export function AppContextProvider({ children }) {
   const [customLat, setCustomLat] = useState(null);
   const [customLon, setCustomLon] = useState(null);
   const [mouseHide, setMouseHide] = useState(false);
+  const [sunriseTime, setSunriseTime] = useState(null);
+  const [sunsetTime, setSunsetTime] = useState(null);
 
   /**
    * Save mouse hide state
@@ -407,6 +409,39 @@ export function AppContextProvider({ children }) {
     });
   }
 
+  function updateSunriseSunset(coords) {
+    return new Promise((resolve, reject) => {
+      if (!coords) {
+        setSunriseTime(null);
+        setSunsetTime(null);
+        return reject("No coords");
+      }
+      const { latitude, longitude } = coords;
+
+      axios
+        .get(
+          `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`
+        )
+        .then((res) => {
+          const { results } = res?.data;
+          if (results) {
+            const { sunrise, sunset } = results;
+            setSunriseTime(sunrise);
+            setSunsetTime(sunset);
+          } else {
+            setSunriseTime(null);
+            setSunsetTime(null);
+          }
+          resolve(results);
+        })
+        .catch((err) => {
+          setSunriseTime(null);
+          setSunsetTime(null);
+          reject(err);
+        });
+    });
+  }
+
   /**
    * Updates current weather data
    *
@@ -421,7 +456,6 @@ export function AppContextProvider({ children }) {
     setCurrentWeatherDataErrMsg(null);
     const { latitude, longitude } = coords;
 
-    // https://developer.climacell.co/v3/reference#data-layers-weather
     const fields = [
       "temperature",
       "humidity",
@@ -442,6 +476,7 @@ export function AppContextProvider({ children }) {
         setSettingsMenuOpen(true);
         return reject("Missing weather API key");
       }
+
       axios
         .get(
           `https://data.climacell.co/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=current&apikey=${weatherApiKey}`
@@ -571,6 +606,9 @@ export function AppContextProvider({ children }) {
     dailyWeatherDataErrMsg,
     mouseHide,
     saveMouseHide,
+    updateSunriseSunset,
+    sunriseTime,
+    sunsetTime,
   };
 
   return (

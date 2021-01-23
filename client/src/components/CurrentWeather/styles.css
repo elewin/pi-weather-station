@@ -16,7 +16,7 @@
 }
 
 .icon-container {
-  grid-area: weather-icon;  
+  grid-area: weather-icon;
   display: flex;
   justify-content: flex-start;
   align-items: center;

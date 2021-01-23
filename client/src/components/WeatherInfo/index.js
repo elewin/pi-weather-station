@@ -61,6 +61,7 @@ const WeatherInfo = () => {
     darkMode,
     setSettingsMenuOpen,
     currentWeatherData,
+    updateSunriseSunset
   } = useContext(AppContext);
 
   const [
@@ -77,10 +78,11 @@ const WeatherInfo = () => {
   const [err, setErr] = useState(null);
 
   const hourlyWeatherUpdateCb = useCallback(() => {
+    updateSunriseSunset(mapGeo);
     updateHourlyWeatherData(mapGeo).catch((err) => {
       console.log("err", err);
     });
-  }, [updateHourlyWeatherData, mapGeo]);
+  }, [updateHourlyWeatherData, updateSunriseSunset, mapGeo]);
 
   const dailyWeatherUpdateCb = useCallback(() => {
     updateDailyWeatherData(mapGeo).catch((err) => {
