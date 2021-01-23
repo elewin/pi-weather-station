@@ -1,4 +1,6 @@
-# Pi Weather Station
+# Pi Weather Station 1.0
+
+>Note: This branch was designed to work with the [ClimaCell](https://www.climacell.co/) v3 API
 
 This is a weather station designed to be used with a Raspberry Pi on the official 7" 800x480 touchscreen.
 
@@ -12,11 +14,11 @@ See it in action [here](https://www.youtube.com/watch?v=dvM6cyqYSw8).
 
 > Be mindful of the plan limits for your API keys and understand the terms of each provider, as scrolling around the map and selecting different locations will incur API calls for every location. Additionally, the weather station will periodically make additional api calls to get weather updates throughout the day.
 
-## Setup 
+## Setup
 
 > You will need to have [Node.js](https://nodejs.org/) installed.
 
-To install, clone the repo and run 
+To install, clone the repo and run
 
     $ npm install
 
@@ -45,7 +47,7 @@ The server will now serve the app across your network.
 ## Settings
 
 - Your API keys are saved locally (in plain text) to `settings.json`.
-- The server will attempt to get your default location, but if it cannot or you wish to choose a different default location, enter the latitude and longitude under `Custom Latitude` and `Custom Longitude` in settings, which can be accessed by tapping the gear button in the lower right hand corner. 
+- The server will attempt to get your default location, but if it cannot or you wish to choose a different default location, enter the latitude and longitude under `Custom Latitude` and `Custom Longitude` in settings, which can be accessed by tapping the gear button in the lower right hand corner.
 - To hide the mouse cursor when using a touch screen, set `Hide Mouse` to `On`.
 
 ## License
