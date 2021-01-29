@@ -87,16 +87,22 @@ const createChartOptions = ({
 const chartColors = {
   blue: "rgba(63, 127, 191, 0.5)",
   gray: "rgba(127, 127, 127, 0.5)",
-  gray2: "rgba(127, 127, 127, 0.3)",
 };
 
-const mapChartData = ({ data, tempUnit, speedUnit, altMode, lengthUnit }) => {
+const mapChartData = ({
+  data: weatherData,
+  tempUnit,
+  speedUnit,
+  altMode,
+  lengthUnit,
+}) => {
+  const data = weatherData?.data?.timelines?.[0]?.intervals;
   if (!data) {
     return null;
   }
   return {
     labels: data.map((e) => {
-      const date = new Date(e.observation_time.value);
+      const date = new Date(e.startTime);
       const adjustedTimestamp =
         date.getTime() + date.getTimezoneOffset() * 60 * 1000;
       return format(new Date(adjustedTimestamp), "EEEEE");
@@ -104,11 +110,14 @@ const mapChartData = ({ data, tempUnit, speedUnit, altMode, lengthUnit }) => {
     datasets: [
       {
         radius: 0,
-        label: altMode ? "High Wind Speed" : "High Temp",
+        label: altMode ? "Wind Speed" : "Temp",
         data: data.map((e) => {
+          const {
+            values: { windSpeed, temperature },
+          } = e;
           return altMode
-            ? convertSpeed(e.wind_speed[1].max.value, speedUnit)
-            : convertTemp(e.temp[1].max.value, tempUnit);
+            ? convertSpeed(windSpeed, speedUnit)
+            : convertTemp(temperature, tempUnit);
         }),
         yAxisID: "y-axis-1",
         borderColor: chartColors.gray,
@@ -117,24 +126,14 @@ const mapChartData = ({ data, tempUnit, speedUnit, altMode, lengthUnit }) => {
       },
       {
         radius: 0,
-        label: altMode ? "Low Wind Speed" : "Low Temp",
-        data: data.map((e) => {
-          return altMode
-            ? convertSpeed(e.wind_speed[0].min.value, speedUnit)
-            : convertTemp(e.temp[0].min.value, tempUnit);
-        }),
-        yAxisID: "y-axis-1",
-        borderColor: chartColors.gray2,
-        backgroundColor: chartColors.gray2,
-        fill: false,
-      },
-      {
-        radius: 0,
         label: "Precipitation",
         data: data.map((e) => {
+          const {
+            values: { precipitationIntensity, precipitationProbability },
+          } = e;
           return altMode
-            ? convertLength(e.precipitation[0].max.value, lengthUnit)
-            : e.precipitation_probability.value;
+            ? convertLength(precipitationIntensity, lengthUnit)
+            : precipitationProbability;
         }),
         yAxisID: "y-axis-2",
         borderColor: chartColors.blue,

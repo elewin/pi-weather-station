@@ -13,24 +13,20 @@ import styles from "./styles.css";
  * @returns {JSX.Element} Sunrise / Sunset component
  */
 const SunRiseSet = () => {
-  const { currentWeatherData, clockTime } = useContext(AppContext);
-  if (currentWeatherData) {
-    const {
-      sunrise: { value: sunrise },
-      sunset: { value: sunset },
-    } = currentWeatherData;
+  const { sunriseTime, sunsetTime, clockTime } = useContext(AppContext);
+  if (sunriseTime && sunsetTime) {
     return (
       <div className={styles.container}>
         <div>
           <InlineIcon icon={bxsSun} />
           <span>
-            {format(new Date(sunrise), clockTime === "12" ? "p" : "HH:mm")}
+            {format(new Date(sunriseTime), clockTime === "12" ? "p" : "HH:mm")}
           </span>
         </div>
         <div>
           <InlineIcon icon={bxsMoon} />
           <span>
-            {format(new Date(sunset), clockTime === "12" ? "p" : "HH:mm")}
+            {format(new Date(sunsetTime), clockTime === "12" ? "p" : "HH:mm")}
           </span>
         </div>
       </div>

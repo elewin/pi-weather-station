@@ -11,12 +11,12 @@ import styles from "./styles.css";
  * @returns {JSX.Element} Location name
  */
 const LocationName = () => {
-  const { currentWeatherData, reverseGeoApiKey } = useContext(AppContext);
+  const { mapGeo, reverseGeoApiKey } = useContext(AppContext);
   const [name, setName] = useState(null);
 
   useEffect(() => {
-    if (currentWeatherData && reverseGeoApiKey) {
-      const { lat, lon } = currentWeatherData;
+    if (mapGeo && reverseGeoApiKey) {
+      const { latitude: lat, longitude: lon } = mapGeo;
       reverseGeocode({ lat, lon, apiKey: reverseGeoApiKey })
         .then((res) => {
           setName(getName(res));
@@ -25,11 +25,11 @@ const LocationName = () => {
           setName(`${lat}, ${lon}`);
           console.log("err!", err);
         });
-    } else if (currentWeatherData && !reverseGeoApiKey) {
-      const { lat, lon } = currentWeatherData;
+    } else if (mapGeo && !reverseGeoApiKey) {
+      const { latitude: lat, longitude: lon } = mapGeo;
       setName(`${lat}, ${lon}`);
     }
-  }, [currentWeatherData, reverseGeoApiKey]);
+  }, [mapGeo, reverseGeoApiKey]);
 
   return (
     <div className={`${styles.container}`}>
@@ -48,7 +48,7 @@ const LocationName = () => {
  * @param {Object} res
  * @returns {String} Display name
  */
-const getName = (res) => {  
+const getName = (res) => {
   // eslint-disable-next-line babel/camelcase
   const { city, country, state, country_code, county, region } = res.address;
   // eslint-disable-next-line babel/camelcase

@@ -90,25 +90,26 @@ const chartColors = {
 };
 
 const mapChartData = ({
-  data,
+  data: weatherData,
   tempUnit,
   speedUnit,
   clockTime,
   altMode,
   lengthUnit,
 }) => {
+  const data = weatherData?.data?.timelines?.[0]?.intervals;
   if (!data) {
     return null;
   }
   return {
     labels: data.map((e) => {
       if (clockTime === "12") {
-        return `${format(new Date(e.observation_time.value), "h")}${format(
-          new Date(e.observation_time.value),
+        return `${format(new Date(e.startTime), "h")}${format(
+          new Date(e.startTime),
           "aaaaa"
         )}`;
       } else {
-        return `${format(new Date(e.observation_time.value), "HH")}`;
+        return `${format(new Date(e.startTime), "HH")}`;
       }
     }),
     datasets: [
@@ -116,9 +117,12 @@ const mapChartData = ({
         radius: 0,
         label: altMode ? "Wind Speed" : "Temp",
         data: data.map((e) => {
+          const {
+            values: { windSpeed, temperature },
+          } = e;
           return altMode
-            ? convertSpeed(e.wind_speed.value, speedUnit)
-            : convertTemp(e.temp.value, tempUnit);
+            ? convertSpeed(windSpeed, speedUnit)
+            : convertTemp(temperature, tempUnit);
         }),
         yAxisID: "y-axis-1",
         borderColor: chartColors.gray,
@@ -129,9 +133,12 @@ const mapChartData = ({
         radius: 0,
         label: "Precipitation",
         data: data.map((e) => {
+          const {
+            values: { precipitationIntensity, precipitationProbability },
+          } = e;
           return altMode
-            ? convertLength(e.precipitation.value, lengthUnit)
-            : e.precipitation_probability.value;
+            ? convertLength(precipitationIntensity, lengthUnit)
+            : precipitationProbability;
         }),
         yAxisID: "y-axis-2",
         borderColor: chartColors.blue,
@@ -196,7 +203,7 @@ const HourlyChart = () => {
         />
       </div>
     );
-  }else if (hourlyWeatherDataErr) {
+  } else if (hourlyWeatherDataErr) {
     return (
       <div
         className={`${darkMode ? styles.dark : styles.light} ${
