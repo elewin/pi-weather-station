@@ -57,7 +57,7 @@ The server will now serve the app across your network.
 
 # Do you want to Host this Application in Docker?
 
-Pi Weather Station is available as a Docker Image for AMD64 and ARM infrastructures. see the *ReadME here for more: https://github.com/SeanRiggs/pi-weather-station/blob/master/Docker%20Image/Docker-ReadMe.md
+Pi Weather Station is available as a Docker Image for AMD64 and ARM infrastructures. see the *ReadME* here for more: https://github.com/SeanRiggs/pi-weather-station/blob/master/Docker%20Image/Docker-ReadMe.md
 
 # License
 
