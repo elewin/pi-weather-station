@@ -34,6 +34,13 @@ Options will allow you to run on any physical Linux machine (including Raspberry
 <tr>
 <td>arm64v8</td>
 <td>✅</td>
+</tr>
+<tr>
+<td>armhf</td>
+<td>✅</td>
+</tr>
+<td>arm32v7</td>
+<td>✅	</td>
 </table>
 
 <strong>Docker Run</strong>
