@@ -1,0 +1,12 @@
+version: '3'
+services:
+  weather-station:
+    image: seanriggs/pi-weather-station:latest
+    container_name: weather-station
+    ports:
+      - "8080:8080"
+    volumes:
+      - appdata:/app
+    restart: unless-stopped
+volumes:
+  appdata:

@@ -55,6 +55,10 @@ The server will now serve the app across your network.
 - The server will attempt to get your default location, but if it cannot or you wish to choose a different default location, enter the latitude and longitude under `Custom Latitude` and `Custom Longitude` in settings, which can be accessed by tapping the gear button in the lower right hand corner.
 - To hide the mouse cursor when using a touch screen, set `Hide Mouse` to `On`.
 
+# Do you want to Host this Application in Docker?
+
+Pi Weather Station is available as a Docker Image for AMD64 and ARM infrastructures. see the *ReadME* here for more: https://github.com/SeanRiggs/pi-weather-station/blob/master/Docker%20Image/Docker-ReadMe.md
+
 # License
 
 The MIT License (MIT)
