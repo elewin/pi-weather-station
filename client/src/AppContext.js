@@ -374,7 +374,7 @@ export function AppContextProvider({ children }) {
     ].join("%2c");
 
     const endTime = new Date(
-      new Date().getTime() + 6 * 60 * 60 * 24 * 1000
+      new Date().getTime() + 4 * 60 * 60 * 24 * 1000
     ).toISOString();
 
     return new Promise((resolve, reject) => {

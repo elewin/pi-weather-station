@@ -27,7 +27,7 @@ const createChartOptions = ({
     stacked: false,
     title: {
       display: true,
-      text: `7 Day ${
+      text: `5 Day ${
         altMode
           ? `Wind Speed / Precipitation (${lengthUnit})`
           : `Temp / Precipitation`
@@ -218,7 +218,7 @@ const DailyChart = () => {
           styles.errContainer
         }`}
       >
-        <div>Cannot get 7 day weather forecast</div>
+        <div>Cannot get 5 day weather forecast</div>
         <div className={styles.message}>{dailyWeatherDataErrMsg}</div>
       </div>
     );
