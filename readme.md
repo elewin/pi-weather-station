@@ -15,6 +15,15 @@ See it in action [here](https://www.youtube.com/watch?v=dvM6cyqYSw8).
 
 > Be mindful of the plan limits for your API keys and understand the terms of each provider, as scrolling around the map and selecting different locations will incur API calls for every location. Additionally, the weather station will periodically make additional api calls to get weather updates throughout the day.
 
+# v2.1.0
+
+- Upgraded build system from webpack 4 to webpack 5
+- Updated all build dependencies (css-loader v7, style-loader v3, postcss v8, html-webpack-plugin v5)
+- Fixed CSS modules compatibility with css-loader v7 (`esModule: false`)
+- Updated [RainViewer](https://www.rainviewer.com/) API to v2 (`weather-maps.json`)
+- Updated geolocation service to [ipapi.co](https://ipapi.co/)
+- Updated axios to v1.x and express to v4.22
+
 # v2.0.1
 
 6-12-24: Now uses [Tomorrow.io](https://www.tomorrow.io) APi instead of ClimaCell.
@@ -25,11 +34,17 @@ See it in action [here](https://www.youtube.com/watch?v=dvM6cyqYSw8).
 
 # Setup
 
-> You will need to have [Node.js](https://nodejs.org/) installed.
+> **Raspberry Pi OS requirement:** These instructions require **Raspberry Pi OS Bookworm (Debian 12)** or later. Bullseye (Debian 11) ships with Node.js 12 by default, which is incompatible with the build dependencies (`css-loader` v7 and `postcss-preset-env` v10 require Node.js >= 18).
+
+> You will need to have [Node.js](https://nodejs.org/) 18 or later installed.
 
 To install, clone the repo and run
 
     $ npm install
+
+Then build the client
+
+    $ cd client && npm install && npm run prod && cd ..
 
 Start the server with
 
@@ -39,7 +54,7 @@ Now set point your browser to `http://localhost:8080` and put it in full screen 
 
 ## Access from another machine
 
-It's possible to access the app from another machine, but beware that by doing so you'll be exposing the app to your entire network, and someone else could potentially access the app and retreive your API keys from the settings page. By default the app is only accessible to `localhost`, but if you would like to open it up to your network (at your own risk!), open `/server/index.js` and remove `"localhost"` from the line that contains:
+It's possible to access the app from another machine, but beware that by doing so you'll be exposing the app to your entire network, and someone else could potentially access the app and retrieve your API keys from the settings page. By default the app is only accessible to `localhost`, but if you would like to open it up to your network (at your own risk!), open `/server/index.js` and remove `"localhost"` from the line that contains:
 
 ```js
 app.listen(PORT, "localhost", async () => {
@@ -56,8 +71,16 @@ The server will now serve the app across your network.
 # Settings
 
 - Your API keys are saved locally (in plain text) to `settings.json`.
-- The server will attempt to get your default location, but if it cannot or you wish to choose a different default location, enter the latitude and longitude under `Custom Latitude` and `Custom Longitude` in settings, which can be accessed by tapping the gear button in the lower right hand corner.
+- The server will attempt to get your default location via [ipapi.co](https://ipapi.co/) (requires internet access), but if it cannot or you wish to choose a different default location, enter the latitude and longitude under `Custom Latitude` and `Custom Longitude` in settings, which can be accessed by tapping the gear button in the lower right hand corner.
 - To hide the mouse cursor when using a touch screen, set `Hide Mouse` to `On`.
+
+# Contributors
+
+- [@elewin](https://github.com/elewin) — Original author
+- [@aevans1987](https://github.com/aevans1987)
+- [@dagent23](https://github.com/dagent23)
+- [@klamer](https://github.com/klamer)
+- [Claude Code](https://claude.ai/code) (Anthropic) — AI pair programmer
 
 # Do you want to Host this Application in Docker?
 

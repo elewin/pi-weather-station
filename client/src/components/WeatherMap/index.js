@@ -3,6 +3,7 @@ import React, {
   useContext,
   useState,
   useCallback,
+  useMemo,
   useRef,
 } from "react";
 import { Map, TileLayer, AttributionControl, Marker } from "react-leaflet";
@@ -35,13 +36,15 @@ const WeatherMap = ({ zoom, dark }) => {
   } = useContext(AppContext);
   const mapRef = useRef();
 
-  const mapClickHandler = useCallback(
-    debounce((e) => {
-      const { lat: latitude, lng: longitude } = e.latlng;
-      const newCoords = { latitude, longitude };
-      setMapPosition(newCoords);
-    }, MAP_CLICK_DEBOUNCE_TIME),
-    [setMapPosition]
+  const handleMapClick = useCallback((e) => {
+    const { lat: latitude, lng: longitude } = e.latlng;
+    const newCoords = { latitude, longitude };
+    setMapPosition(newCoords);
+  }, [setMapPosition]);
+
+  const mapClickHandler = useMemo(
+    () => debounce(handleMapClick, MAP_CLICK_DEBOUNCE_TIME),
+    [handleMapClick]
   );
 
   const [mapTimestamps, setMapTimestamps] = useState(null);
@@ -152,12 +155,9 @@ const WeatherMap = ({ zoom, dark }) => {
       {mapTimestamp ? (
         <TileLayer
           attribution='<a href="https://www.rainviewer.com/">RainViewer</a>'
-          url={`https://tilecache.rainviewer.com/v2/radar/${mapTimestamp}/{size}/{z}/{x}/{y}/{color}/{smooth}_{snow}.png`}
+          url={`https://tilecache.rainviewer.com${mapTimestamp.path}/512/{z}/{x}/{y}/6/1_1.png`}
           opacity={0.3}
-          size={512}
-          color={6} // https://www.rainviewer.com/api.html#colorSchemes
-          smooth={1}
-          snow={1}
+          maxNativeZoom={7}
         />
       ) : null}
       {markerIsVisible && markerPosition ? (
@@ -213,9 +213,10 @@ function hasVal(i) {
 function getMapTimestamps() {
   return new Promise((resolve, reject) => {
     axios
-      .get("https://api.rainviewer.com/public/maps.json")
+      .get("https://api.rainviewer.com/public/weather-maps.json")
       .then((res) => {
-        resolve(res.data);
+        const frames = res.data.radar.past;
+        resolve(frames);
       })
       .catch((err) => {
         reject(err);
