@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require("axios").default;
 
 /**
  * Gets coordinates from an external API
@@ -6,11 +6,11 @@ const axios = require("axios");
  */
 function getCoords(req, res) {
   axios
-    .get("https://freegeoip.app/json/")
+    .get("https://ipapi.co/json/")
     .then((result) => {
       return res.status(result.status).json(result.data).end();
     })
-    .catch((err) => {      
+    .catch((err) => {
       return res.status(500).json(err).end();
     });
 }

@@ -26,7 +26,7 @@ const App = () => {
     getCustomLatLon();
     getBrowserGeo();
     loadStoredData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- initialization, runs once on mount
 
   return (
     <div
@@ -43,7 +43,7 @@ const App = () => {
             mouseHide ? "map-mouse-hide" : ""
           } ${darkMode ? "map-dark-mode" : ""}`}
         >
-          <WeatherMap zoom={9} dark={darkMode} />
+          <WeatherMap zoom={7} dark={darkMode} />
         </div>
         <div className={styles.infoContainer}>
           <InfoPanel />

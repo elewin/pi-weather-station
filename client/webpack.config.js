@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = (env) => {
   const PRODUCTION = !!(env && env.BUILD_PRODUCTION);
@@ -20,15 +21,6 @@ module.exports = (env) => {
     },
     module: {
       rules: [
-        {
-          enforce: "pre",
-          test: /\.js$/,
-          include: [path.resolve(__dirname, "src")],
-          exclude: /node_modules/,
-          use: {
-            loader: "eslint-loader"
-          }
-        },        
         {
           test: /\.(js|jsx)$/,
           include: [path.resolve(__dirname, "src")],
@@ -53,43 +45,30 @@ module.exports = (env) => {
               loader: "css-loader",
               options: {
                 sourceMap: !PRODUCTION,
+                esModule: false,
                 modules: {
                   exportLocalsConvention: "camelCase",
                   localIdentName: "[path][name]__[local]--[hash:base64:5]",
                 },
               },
             },
-            { loader: "postcss-loader", options: { sourceMap: !PRODUCTION } },
+            { loader: "postcss-loader", options: { sourceMap: !PRODUCTION, postcssOptions: { config: true } } },
           ],
         },
         {
           test: /\.(png|svg|jpg|gif)$/,
-          use: [
-            {
-              loader: "url-loader",
-              options: {
-                limit: 8192,
-                sourceMap: !PRODUCTION,
-                name: PRODUCTION
-                ? "[contenthash].[ext]"
-                : "[path][name].[ext]?[contenthash]"                
-              },
-            },
-          ],
+          type: "asset",
+          parser: { dataUrlCondition: { maxSize: 8192 } },
+          generator: {
+            filename: PRODUCTION ? "[contenthash][ext]" : "[path][name][ext]?[contenthash]"
+          },
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/,
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                sourceMap: !PRODUCTION,
-                name: PRODUCTION
-                  ? "[contenthash].[ext]"
-                  : "[path][name].[ext]?[contenthash]"
-              },
-            },
-          ],
+          type: "asset/resource",
+          generator: {
+            filename: PRODUCTION ? "[contenthash][ext]" : "[path][name][ext]?[contenthash]"
+          },
         },
       ],
     },
@@ -105,6 +84,7 @@ module.exports = (env) => {
         filename: "./index.html",
       }),
       definePlugin,
+      new ESLintPlugin({ extensions: ["js", "jsx"] }),
     ],
     watchOptions: {
       ignored: /node_modules/
