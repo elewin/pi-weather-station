@@ -40,15 +40,15 @@ See it in action [here](https://www.youtube.com/watch?v=dvM6cyqYSw8).
 
 To install, clone the repo and run
 
-    $ npm install
+    npm install
 
 Then build the client
 
-    $ cd client && npm install && npm run prod && cd ..
+    cd client && npm install && npm run prod && cd ..
 
 Start the server with
 
-    $ npm start
+    npm start
 
 Now set point your browser to `http://localhost:8080` and put it in full screen mode (`F11` in Chromium).
 
