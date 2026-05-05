@@ -41,7 +41,7 @@ const WeatherMap = ({ zoom, dark }) => {
       const newCoords = { latitude, longitude };
       setMapPosition(newCoords);
     }, MAP_CLICK_DEBOUNCE_TIME),
-    [setMapPosition]
+    [setMapPosition],
   );
 
   const [mapTimestamps, setMapTimestamps] = useState(null);
@@ -51,9 +51,10 @@ const WeatherMap = ({ zoom, dark }) => {
   const MAP_TIMESTAMP_REFRESH_FREQUENCY = 1000 * 60 * 10; //update every 10 minutes
   const MAP_CYCLE_RATE = 1000; //ms
 
-  const getMapApiKeyCallback = useCallback(() => getMapApiKey(), [
-    getMapApiKey,
-  ]);
+  const getMapApiKeyCallback = useCallback(
+    () => getMapApiKey(),
+    [getMapApiKey],
+  );
 
   useEffect(() => {
     getMapApiKeyCallback().catch((err) => {
@@ -72,7 +73,7 @@ const WeatherMap = ({ zoom, dark }) => {
 
     const mapTimestampsInterval = setInterval(
       updateTimeStamps,
-      MAP_TIMESTAMP_REFRESH_FREQUENCY
+      MAP_TIMESTAMP_REFRESH_FREQUENCY,
     );
     updateTimeStamps(); //initial update
     return () => {
@@ -154,12 +155,11 @@ const WeatherMap = ({ zoom, dark }) => {
       {mapTimestamp ? (
         <TileLayer
           attribution='<a href="https://www.rainviewer.com/">RainViewer</a>'
-          url={`https://tilecache.rainviewer.com/v2/radar/${mapTimestamp}/{size}/{z}/{x}/{y}/{color}/{smooth}_{snow}.png`}
+          url={`https://tilecache.rainviewer.com${mapTimestamp.path}/512/{z}/{x}/{y}/6/1_1.png`}
           opacity={0.3}
-          size={512}
-          color={6} // https://www.rainviewer.com/api.html#colorSchemes
-          smooth={1}
-          snow={1}
+          tileSize={512}
+          zoomOffset={-1}
+          maxNativeZoom={8}
         />
       ) : null}
       {markerIsVisible && markerPosition ? (
@@ -215,9 +215,10 @@ function hasVal(i) {
 function getMapTimestamps() {
   return new Promise((resolve, reject) => {
     axios
-      .get("https://api.rainviewer.com/public/maps.json")
+      .get("https://api.rainviewer.com/public/weather-maps.json")
       .then((res) => {
-        resolve(res.data);
+        const frames = res.data.radar.past;
+        resolve(frames);
       })
       .catch((err) => {
         reject(err);

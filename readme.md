@@ -15,6 +15,10 @@ See it in action [here](https://www.youtube.com/watch?v=dvM6cyqYSw8).
 
 > Be mindful of the plan limits for your API keys and understand the terms of each provider, as scrolling around the map and selecting different locations will incur API calls for every location. Additionally, the weather station will periodically make additional api calls to get weather updates throughout the day.
 
+# v3.0.2
+
+05-04-2026: Updated to use latest [Tomorrow.io](https://www.tomorrow.io/) API, other bug fixes
+
 # v2.0.0
 
 1-22-2021: Now uses the [Tomorrow.io](https://www.tomorrow.io/) (formerly ClimaCell) API v4. For ClimaCell API v3 keys, use [Pi Weather Station v1](https://github.com/elewin/pi-weather-station/releases/tag/v1.0).
@@ -61,7 +65,7 @@ Pi Weather Station is available as a Docker Image for AMD64 and ARM infrastructu
 
 # Thanks
 
-Thanks to thicla01 for the label size bug fix
+Thanks to thicla01 for the label size bug fix, and dagent23 for tile layer fixes
 
 # License
 
