@@ -59,6 +59,10 @@ The server will now serve the app across your network.
 
 Pi Weather Station is available as a Docker Image for AMD64 and ARM infrastructures. see the *ReadME* here for more: https://github.com/SeanRiggs/pi-weather-station/blob/master/Docker%20Image/Docker-ReadMe.md
 
+# Thanks
+
+Thanks to thicla01 for the label size bug fix
+
 # License
 
 The MIT License (MIT)
