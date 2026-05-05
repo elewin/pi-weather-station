@@ -332,7 +332,7 @@ export function AppContextProvider({ children }) {
 
       axios
         .get(
-          `https://data.climacell.co/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=1h&apikey=${weatherApiKey}&endTime=${endTime}`
+          `https://api.tomorrow.io/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=1h&apikey=${weatherApiKey}&endTime=${endTime}`
         )
         .then((res) => {
           if (!res) {
@@ -389,7 +389,7 @@ export function AppContextProvider({ children }) {
       }
       axios
         .get(
-          `https://data.climacell.co/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=1d&apikey=${weatherApiKey}&endTime=${endTime}`
+          `https://api.tomorrow.io/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=1d&apikey=${weatherApiKey}&endTime=${endTime}`
         )
         .then((res) => {
           if (!res) {
@@ -479,7 +479,7 @@ export function AppContextProvider({ children }) {
 
       axios
         .get(
-          `https://data.climacell.co/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=current&apikey=${weatherApiKey}`
+          `https://api.tomorrow.io/v4/timelines?location=${latitude}%2C${longitude}&fields=${fields}&timesteps=current&apikey=${weatherApiKey}`
         )
         .then((res) => {
           if (!res) {
