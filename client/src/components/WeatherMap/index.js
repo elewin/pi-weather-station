@@ -148,6 +148,8 @@ const WeatherMap = ({ zoom, dark }) => {
           dark ? "dark-v10" : "light-v10"
         }/tiles/{z}/{x}/{y}?access_token={apiKey}`}
         apiKey={mapApiKey}
+        tileSize={512}
+        zoomOffset={-1}
       />
       {mapTimestamp ? (
         <TileLayer
