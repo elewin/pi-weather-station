@@ -417,10 +417,16 @@ export function AppContextProvider({ children }) {
         return reject("No coords");
       }
       const { latitude, longitude } = coords;
+      // Without `date` the API answers for the current UTC date; ask for the local one.
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      const localDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
+        now.getDate()
+      )}`;
 
       axios
         .get(
-          `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`
+          `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0&date=${localDate}`
         )
         .then((res) => {
           const { results } = res?.data;
